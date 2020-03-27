@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "2a398a96-63df-4fd2-84b8-7b9e3f2234ef",
+		"name": "GeoCovid API Rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registro de usuário",
+			"item": [
+				{
+					"name": "[Caso] #01 - Registro temporário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Diego Fernando de Sousa Lima\",\n\t\"username\":\"diegofernando\",\n\t\"email\":\"diegofernando5672@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url_and_port_dev}}/user/register/first-access/",
+							"host": [
+								"{{base_url_and_port_dev}}"
+							],
+							"path": [
+								"user",
+								"register",
+								"first-access",
+								""
+							]
+						},
+						"description": "O usuário faz um post sanvando as infomações básicas e em seguida recebe um email para continuar."
+					},
+					"response": []
+				},
+				{
+					"name": "[Caso] #02 - Ativando email e o usuário com senha",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_and_port_dev}}/user/register/second-access/?link=dc7efbff-48c2-4860-911c-a9016f2fc992",
+							"host": [
+								"{{base_url_and_port_dev}}"
+							],
+							"path": [
+								"user",
+								"register",
+								"second-access",
+								""
+							],
+							"query": [
+								{
+									"key": "link",
+									"value": "dc7efbff-48c2-4860-911c-a9016f2fc992"
+								}
+							]
+						},
+						"description": "O usuário faz um post sanvando as infomações básicas e em seguida recebe um email para continuar."
+					},
+					"response": []
+				},
+				{
+					"name": "[Caso] #02 - Ativando email e o usuário com senha Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\":\"dieguim961100\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url_and_port_dev}}/user/register/second-access/?link=2cf45548-de83-48df-9738-982cad8d379c",
+							"host": [
+								"{{base_url_and_port_dev}}"
+							],
+							"path": [
+								"user",
+								"register",
+								"second-access",
+								""
+							],
+							"query": [
+								{
+									"key": "link",
+									"value": "2cf45548-de83-48df-9738-982cad8d379c"
+								}
+							]
+						},
+						"description": "O usuário faz um post sanvando as infomações básicas e em seguida recebe um email para continuar."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
