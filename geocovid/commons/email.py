@@ -2,12 +2,14 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from celery import shared_task
+from django.conf import settings
 
 @shared_task
 def first_register_email(name, email, link):
 
 	context = {
 		"name":name,
+		"path_link": settings.LINK_VALIDATE_REGISTER,
 		"link":link
 	}
 
