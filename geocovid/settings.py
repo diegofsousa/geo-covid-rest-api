@@ -26,10 +26,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
+# Main settings from '.env' file
+MAIN_HOST = config('MAIN_HOST')
+PATH_VALIDATE_REGISTER = config('PATH_VALIDATE_REGISTER')
+
+# Paths for frontend
+LINK_VALIDATE_REGISTER = MAIN_HOST + PATH_VALIDATE_REGISTER
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [config('HOST_ALLOWED1'), config('HOST_ALLOWED2')]
 
 
 # Application definition
@@ -51,6 +58,8 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'rest_framework',
     'rest_framework_mongoengine',
+    'rest_framework.authtoken',
+    'rest_auth', 
 ]
 
 MIDDLEWARE = [
@@ -135,11 +144,22 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'user.User'
 
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+
+    ),
     'PAGE_SIZE': 10
 }
 
+REST_USE_JWT = True
 
 mongoengine.connect(
     db='geoCovid',

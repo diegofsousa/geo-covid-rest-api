@@ -12,15 +12,15 @@
     {% url 'account_email' as email_url %}
     <p>Olá {{ name }}, tudo bem? Para ativar a sua conta precisamos que você defina uma senha no nosso link a seguir:</p>
 
-    <a target="_blank" href="http://localhost:8000/api/v1.0/user/register/second-access/?link={{ link }}">
+    <a target="_blank" href="{{ path_link }}{{ link }}">
         Ative agora seu registro!
     </a>
 
     <p>
         Caso o link acima não funcione, copie e cole o trecho abaixo no seu navegador:
         <br>
-        <a target="_blank" href="http://localhost:8000/api/v1.0/user/register/second-access/?link={{ link }}">
-        http://localhost:8000/api/v1.0/user/register/second-access/?link={{ link }}
+        <a target="_blank" href="{{ path_link }}{{ link }}">
+          {{ path_link }}{{ link }}
         </a>    
     </p>
 

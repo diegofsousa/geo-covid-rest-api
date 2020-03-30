@@ -8,14 +8,7 @@ from .validators import _regex_validator
 class FirstAccessSerializer(DocumentSerializer):
 	class Meta:
 		model = TemporalyDataUser
-		fields = ["username","name","email"]
-
-	def validate_username(self, value):
-		_regex_validator('[^0-9a-zA-Z]', value)
-		persists_filter_user = User.objects.filter(username=value)
-		if persists_filter_user.count() != 0:
-			raise RestFieldValidationError("Este username é inválido para cadastro")
-		return value
+		fields = ["name","email"]
 
 	def validate_email(self, value):
 		persists_filter_user = User.objects.filter(email=value)

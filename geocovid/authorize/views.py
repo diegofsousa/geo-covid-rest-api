@@ -12,9 +12,11 @@ from geocovid.user.serializers import UserSerializerForRegister, SimpleUserSeria
 from geocovid.user.service import temp_user_to_persist_user
 from .models import TemporalyDataUser
 from .serializers import FirstAccessSerializer, SecondAccessSerializer
+from rest_framework.permissions import AllowAny
 
 class FirstAccessView(generics.CreateAPIView):
 	serializer_class = FirstAccessSerializer
+	permission_classes = [AllowAny,]
 
 	def perform_create(self, serializer):
 		post_save_object = serializer.save()
@@ -24,6 +26,7 @@ class FirstAccessView(generics.CreateAPIView):
 
 class SecondAccessView(generics.GenericAPIView):
 	serializer_class = SecondAccessSerializer
+	permission_classes = [AllowAny,]
 
 	def _query_link_is_valid(self, link):
 		return TemporalyDataUser. \

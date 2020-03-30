@@ -18,7 +18,6 @@ from django.urls import path, include
 from rest_framework import routers
 from .user import views
 
-
 router = routers.DefaultRouter()
 
 router.register(r'users', views.UserViewSet)
@@ -26,8 +25,9 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('user/register/', include('geocovid.authorize.urls', namespace='authorize')),
-	path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls)
+    path('user/auth/', include('rest_auth.urls')),
+    path('user/me/', views.Me.as_view()),
+    path('admin/', admin.site.urls),
 ]
 
 urlpatterns = [path('api/v1.0/', include(urlpatterns))]
