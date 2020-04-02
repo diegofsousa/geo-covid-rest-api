@@ -6,9 +6,10 @@ from geocovid.user.models import User
 
 
 class CovidPersonalUser(Document):
+
 	user = fields.LongField(required=True)
-	date_birth = fields.StringField(required=True)
-	last_send_geo = fields.DateTimeField(default=datetime.now)
+	date_birth = fields.DateField(required=True)
+	last_send_geo = fields.DateTimeField()
 	last_update_status = fields.DateTimeField(default=datetime.now)
 	created_at = fields.DateTimeField(default=datetime.now)
 	status = fields.StringField(required=True)
