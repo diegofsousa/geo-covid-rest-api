@@ -14,8 +14,7 @@ class CovidPersonalUser(Document):
 	created_at = fields.DateTimeField(default=datetime.now)
 	status = fields.StringField(required=True)
 	observation = fields.StringField()
-	latitude = fields.StringField()
-	longitude = fields.StringField()
+	coordinates = fields.PointField()
 
 	class Meta:
 		verbose_name = 'CovidPersonalUser'

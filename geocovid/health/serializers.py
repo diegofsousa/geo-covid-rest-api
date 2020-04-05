@@ -32,11 +32,9 @@ class FullResponseCovidPersonalUserSerializer(DocumentSerializer):
 		model = CovidPersonalUser
 		exclude = ['user','id']
 
-class UpdateLatitudeLongitudeSerializer(DocumentSerializer):
-	class Meta:
-		model = CovidPersonalUser
-		fields = ["latitude", "longitude"]
-		extra_kwargs = {'latitude': {'required': True}, 'longitude': {'required': True}} 
+class UpdateLatitudeLongitudeSerializer(serializers.Serializer):
+	latitude = serializers.CharField(max_length=200)
+	longitude = serializers.CharField(max_length=200)
 
 	def validate_latitude(self, value):
 		if re.search(REGEX_LATITUDE, value) == None:
@@ -49,8 +47,8 @@ class UpdateLatitudeLongitudeSerializer(DocumentSerializer):
 		return value
 
 	def update(self, instance, validated_data):
-		instance.latitude = validated_data.get('latitude', instance.latitude)
-		instance.longitude = validated_data.get('longitude', instance.longitude)
+		instance.coordinates = [float(validated_data['latitude']), 
+								float(validated_data['longitude'])]
 		instance.last_send_geo = datetime.now()
 		instance.save()
 		return instance
