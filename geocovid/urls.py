@@ -27,6 +27,7 @@ urlpatterns = [
     path('user/register/', include('geocovid.authorize.urls', namespace='authorize')),
     path('user/auth/', include('rest_auth.urls')),
     path('user/me/', views.Me.as_view()),
+    path('health/', include('geocovid.health.urls', namespace='health')),
     path('admin/', admin.site.urls),
 ]
 
