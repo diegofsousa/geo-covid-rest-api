@@ -1,6 +1,26 @@
 version: '3'
 
 services:
+
+services:
+  postgres:
+    container_name: postgres-service
+    hostname: postgres-service
+    image: postgres:12.1
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: senha.123
+      POSTGRES_DB: geo_covid
+      TZ: GMT-3
+    ports:
+      - "19000:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./database/ddl.sql:/docker-entrypoint-initdb.d/1.sql:ro
+    networks:
+      - datanodes-network
+
   mongo:
     container_name: mongo-service
     image: mongo:4.0.13-xenial
@@ -14,22 +34,6 @@ services:
     volumes:
       - db-data-mongodb:/data/db
       - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-    networks:
-      - datanodes-network
-
-  mongo-express:
-    container_name: mongo-express-web
-    image: mongo-express
-    ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_BASICAUTH_USERNAME: admin
-      ME_CONFIG_BASICAUTH_PASSWORD: senha.123
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_MONGODB_ADMINUSERNAME: geo_covid_root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: geo.covid.123
-    depends_on:
-      - mongo
     networks:
       - datanodes-network
 

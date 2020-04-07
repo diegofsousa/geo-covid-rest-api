@@ -104,13 +104,24 @@ WSGI_APPLICATION = 'geocovid.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+ """
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME_PRODUCTION'),
+        'USER': config('DB_USER_PRODUCTION'),
+        'PASSWORD': config('DB_PASSWORD_PRODUCTION'),
+        'HOST': config('DB_HOST_PRODUCTION'),
+        'PORT': config('DB_PORT_PRODUCTION'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
