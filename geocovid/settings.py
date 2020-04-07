@@ -25,6 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
+APPLICATION_KEY = config('APPLICATION_KEY')
 
 # Main settings from '.env' file
 MAIN_HOST = config('MAIN_HOST')
@@ -81,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'geocovid.commons.middleware.SecurityApplicationKeyMiddleware'
 ]
 
 ROOT_URLCONF = 'geocovid.urls'
