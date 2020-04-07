@@ -29,6 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # Main settings from '.env' file
 MAIN_HOST = config('MAIN_HOST')
 PATH_VALIDATE_REGISTER = config('PATH_VALIDATE_REGISTER')
+API_VERSION = config('API_VERSION')
 
 # Paths for frontend
 LINK_VALIDATE_REGISTER = MAIN_HOST + PATH_VALIDATE_REGISTER
@@ -60,7 +61,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_mongoengine',
     'rest_framework.authtoken',
-    'rest_auth', 
+    'rest_auth',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -169,6 +171,9 @@ JWT_AUTH = {
 
 REST_USE_JWT = True
 
+LOGIN_URL = '/api/{}/user/auth/login'.format(API_VERSION)
+LOGOUT_URL = '/api/{}/user/auth/logout'.format(API_VERSION)
+
 mongoengine.connect(
     db='geoCovid',
     host='mongodb://geo_covid_root:senha.123@localhost:27017/?authSource=admin',
@@ -193,3 +198,11 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+    'DEFAULT_MODEL_DEPTH':'0'
+}
