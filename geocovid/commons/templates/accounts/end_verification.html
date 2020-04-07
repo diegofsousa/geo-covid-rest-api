@@ -3,18 +3,16 @@
 
 {% load i18n %}
 
-{% block head_title %}Aêêê, {% endblock %}
+{% block head_title %}Conta ativada{% endblock %}
 
 {% block content %}
   <div>
-    <h1>Aêêê, {{ name }}!</h1>
+    <h1>Olá, {{ name }}!</h1>
 
     {% url 'account_email' as email_url %}
     <p>Olá {{ name }}, sua conta foi ativada com sucesso!</p>
-
-    <a target="_blank" href="http://localhost:8000/">
-        Ir para o FixCode!
-    </a>
+    <p>Acesse o App, para começar a usar.</p>
+    
 
     <br>
 
