@@ -35,7 +35,7 @@ API_VERSION = config('API_VERSION')
 LINK_VALIDATE_REGISTER = MAIN_HOST + PATH_VALIDATE_REGISTER
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = [config('HOST_ALLOWED1'), config('HOST_ALLOWED2')]
 
