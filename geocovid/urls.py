@@ -44,7 +44,8 @@ urlpatterns = [
     path('user/me/', views.Me.as_view()),
     path('health/', include('geocovid.health.urls', namespace='health')),
     path('admin/', admin.site.urls),
-    path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
+    path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('health-check/', include('health_check.urls'))
 ]
 
 urlpatterns = [path('api/{}/'.format(settings.API_VERSION), include(urlpatterns))]
