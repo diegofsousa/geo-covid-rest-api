@@ -15,12 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from rest_framework import routers
 from .user import views
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="GeoCovid Rest API",
+      default_version='v1',
+      description="Uma API Rest de Geolocalização para áreas com concentração de infectação do vírus Covid-19.",
+      #terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="diegofelima.ti@gmail.com"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
 
 router = routers.DefaultRouter()
-
-router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -29,6 +44,7 @@ urlpatterns = [
     path('user/me/', views.Me.as_view()),
     path('health/', include('geocovid.health.urls', namespace='health')),
     path('admin/', admin.site.urls),
+    path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]
 
-urlpatterns = [path('api/v1.0/', include(urlpatterns))]
+urlpatterns = [path('api/{}/'.format(settings.API_VERSION), include(urlpatterns))]
