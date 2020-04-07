@@ -63,6 +63,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'drf_yasg',
+    'health_check',
+    'health_check.db',
+    'health_check.contrib.celery',
+    'health_check.contrib.redis',
+    'health_check.contrib.psutil',
 ]
 
 MIDDLEWARE = [
@@ -192,8 +197,10 @@ EMAIL_PORT = 587
 
 # Celery settings
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+REDIS_URL = 'redis://localhost:6379'
+
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -205,4 +212,9 @@ SWAGGER_SETTINGS = {
         }
     },
     'DEFAULT_MODEL_DEPTH':'0'
+}
+
+HEALTH_CHECK = {
+    'DISK_USAGE_MAX': 90,  # percent
+    'MEMORY_MIN': 100,    # in MB
 }
