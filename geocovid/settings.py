@@ -35,7 +35,10 @@ API_VERSION = config('API_VERSION')
 LINK_VALIDATE_REGISTER = MAIN_HOST + PATH_VALIDATE_REGISTER
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = True
+
+if config('DEBUG') == '0':
+    DEBUG = False
 
 ALLOWED_HOSTS = [config('HOST_ALLOWED1'), config('HOST_ALLOWED2')]
 
@@ -166,6 +169,9 @@ AUTH_USER_MODEL = 'user.User'
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
