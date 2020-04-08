@@ -28,3 +28,9 @@ dockerup:
 	docker-compose up -d
 dockerdown:
 	docker-compose down --volumes
+
+update-deploy:
+	sudo systemctl restart gunicorn
+	sudo systemctl restart gunicorn.socket gunicorn.service
+	sudo systemctl daemon-reload
+	sudo nginx -t && sudo systemctl restart nginx
