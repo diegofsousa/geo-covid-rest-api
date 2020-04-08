@@ -1,8 +1,6 @@
 version: '3'
 
 services:
-
-services:
   postgres:
     container_name: postgres-service
     hostname: postgres-service
@@ -38,7 +36,10 @@ services:
       - datanodes-network
 
   redis:
+    container_name: redis-service
     image: "redis:alpine"
+    volumes:
+      - redis-data:/data
     ports:
       - "6379:6379"
     networks:
@@ -47,6 +48,7 @@ services:
 volumes:
   db-data:
   db-data-mongodb:
+  redis-data:
 
 networks:
   datanodes-network:
